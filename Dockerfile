@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM ubuntu
 
 MAINTAINER Basil Veerman <bveerman@uvic.ca>
 
@@ -6,7 +6,8 @@ RUN apt-get update
 
 RUN apt-get -yq install libhdf5-dev \
                         libnetcdf-dev \
-                        libgdal-dev
+                        libgdal-dev \
+			libyaml-dev
 
 RUN apt-get -yq install python \
                         python-dev \
@@ -14,6 +15,7 @@ RUN apt-get -yq install python \
                         python-virtualenv
 
 RUN apt-get -yq install python-numpy \
-                        python-gdal \
-                        python-h5py \
-                        python-netcdf
+                        python-GDAL \
+                        cython
+
+RUN pip install h5py netCDF4 psycopg2 PyYAML pillow
