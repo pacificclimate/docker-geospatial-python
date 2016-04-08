@@ -2,9 +2,6 @@ FROM ubuntu
 
 MAINTAINER Basil Veerman <bveerman@uvic.ca>
 
-RUN echo 'Acquire::HTTP::Proxy "http://docker1.pcic:3142";' >> /etc/apt/apt.conf.d/01proxy \
- && echo 'Acquire::HTTPS::Proxy "false";' >> /etc/apt/apt.conf.d/01proxy
-
 RUN apt-get update && \
     apt-get -yq install \
     libhdf5-dev \
