@@ -12,15 +12,15 @@ RUN apt-get update && \
     python-dev \
     python-pip \
     python-virtualenv \
-    python-numpy \
     python-GDAL \
     cython \
     python3 \
     python3-dev \
     python3-pip \
-    python3-numpy \
     python3-GDAL \
     cython3
+
+RUN pip install numpy && pip3 install numpy
 
 RUN pip install h5py netCDF4 psycopg2 PyYAML pillow
 
