@@ -6,22 +6,25 @@ RUN apt-get update && \
     apt-get -yq install \
     libhdf5-dev \
     libnetcdf-dev \
-    libgdal-dev \
+    libgdal-dev=1.10.1+dfsg-5ubuntu1 \
     libyaml-dev \
     python \
     python-dev \
     python-pip \
     python-virtualenv \
-    python-GDAL \
     cython \
     python3 \
     python3-dev \
     python3-pip \
-    python3-GDAL \
     cython3
+
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
 
 RUN pip install numpy && pip3 install numpy
 
-RUN pip install h5py netCDF4 psycopg2 PyYAML pillow
+RUN pip install gdal==1.10 h5py netCDF4 psycopg2 PyYAML pillow
 
-RUN pip3 install h5py netCDF4 psycopg2 PyYAML pillow
+RUN pip3 install gdal==1.10 h5py netCDF4 psycopg2 PyYAML pillow
+
+
