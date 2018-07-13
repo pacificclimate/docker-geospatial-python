@@ -1,4 +1,4 @@
-FROM ubuntu:17.10
+FROM ubuntu:18.10
 
 MAINTAINER James Hiebert <hiebert@uvic.ca>
 
@@ -24,6 +24,6 @@ ENV C_INCLUDE_PATH=/usr/include/gdal
 
 RUN pip install numpy && pip3 install numpy
 
-RUN pip install gdal==2.2 h5py netCDF4 psycopg2 PyYAML pillow
+RUN pip install gdal==2.3.1 h5py netCDF4 psycopg2 PyYAML pillow
 
-RUN pip3 install gdal==2.2 h5py netCDF4 psycopg2 PyYAML pillow
+RUN pip3 install gdal==2.3.1 h5py netCDF4 psycopg2 PyYAML pillow
