@@ -15,7 +15,7 @@ node {
 
     stage('Build and Publish Image') {
         withDockerServer([uri: PCIC_DOCKER]) {
-            image = docker.build()
+            image = docker.build(name)
 
             docker.withRegistry('', 'PCIC_DOCKERHUB_CREDS') {
                 image.push()
