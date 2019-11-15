@@ -6,9 +6,9 @@ node {
     def image
     String name = BASE_REGISTRY + 'geospatial-python'
 
-    // tag branch
+    // tag image
     if (BRANCH_NAME == 'master') {
-        // TODO: detect tags and releases for master
+        name = name + ':latest'
     } else {
         name = name + ':' + BRANCH_NAME
     }
