@@ -1,4 +1,4 @@
-@Library('pcic-pipeline-library')_
+@Library('pcic-pipeline-library@1.0.0')_
 
 
 node {
@@ -7,20 +7,19 @@ node {
     }
 
     def image
-    def imageName
-    def imageSuffix = 'geospatial-python'
+    def imageName = buildImageName('geospatial-python')
 
     stage('Build Image') {
-        (image, imageName) = buildDockerImage(imageSuffix)
+        image = buildDockerImage(imageName)
     }
 
     stage('Publish Image') {
         publishDockerImage(image, 'PCIC_DOCKERHUB_CREDS')
     }
 
-    if(!BRANCH_NAME.contains('PR') || BRANCH_NAME == 'master') {
+    if(BRANCH_NAME.contains('PR') || BRANCH_NAME == 'master') {
         stage('Security Scan') {
-            writeFile file: 'anchore_images', text: getScanName(imageSuffix)
+            writeFile file: 'anchore_images', text: imageName
             anchore name: 'anchore_images', engineRetries: '700'
         }
     }
