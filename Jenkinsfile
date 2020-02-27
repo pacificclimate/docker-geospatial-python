@@ -1,36 +1,34 @@
+@Library('pcic-pipeline-library@1.0.0')_
+
+
 node {
     stage('Code Collection') {
-        checkout scm
+        collectCode()
     }
 
     def image
-    String name = BASE_REGISTRY + 'geospatial-python'
+    def imageName = buildImageName('geospatial-python')
 
-    // tag image
-    if (BRANCH_NAME == 'master') {
-        name = name + ':latest'
-    } else {
-        name = name + ':' + BRANCH_NAME
+    stage('Build Image') {
+        image = buildDockerImage(imageName)
     }
 
-    stage('Build and Publish Image') {
-        withDockerServer([uri: PCIC_DOCKER]) {
-            image = docker.build(name)
+    stage('Publish Image') {
+        publishDockerImage(image, 'PCIC_DOCKERHUB_CREDS')
+    }
 
-            docker.withRegistry('', 'PCIC_DOCKERHUB_CREDS') {
-                image.push()
-            }
+    if(BRANCH_NAME.contains('PR') || BRANCH_NAME == 'master') {
+        stage('Security Scan') {
+            writeFile file: 'anchore_images', text: imageName
+            anchore name: 'anchore_images', engineRetries: '700'
         }
     }
 
-    stage('Security Scan') {
-        writeFile file: 'anchore_images', text: name
-        anchore name: 'anchore_images', engineRetries: '700'
+    stage('Clean Local Image') {
+        removeDockerImage(imageName)
     }
 
-    stage('Clean Up Local Image') {
-        withDockerServer([uri: PCIC_DOCKER]){
-            sh "docker rmi ${name}"
-        }
+    stage('Clean Workspace') {
+        cleanWs()
     }
 }
