@@ -1,6 +1,9 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.10
 
 MAINTAINER James Hiebert <hiebert@uvic.ca>
+
+# WARNING: This should be removed with the introduction of 20.04
+RUN sed -i 's/archive.ubuntu.com/old-releases.ubuntu.com/g;s/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 
 RUN apt-get update && \
     apt-get -yq install \
