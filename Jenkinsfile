@@ -1,4 +1,4 @@
-@Library('pcic-pipeline-library@1.0.0')_
+@Library('pcic-pipeline-library')_
 
 
 node {
