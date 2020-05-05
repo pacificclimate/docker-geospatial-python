@@ -16,6 +16,7 @@ MAINTAINER James Hiebert <hiebert@uvic.ca>
 RUN apk update && \
     apk add \
     python3-dev \
+    postgresql-dev \
     cython
 
 RUN apk add make automake gcc g++
