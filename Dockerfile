@@ -16,11 +16,12 @@ MAINTAINER James Hiebert <hiebert@uvic.ca>
 RUN apk update && \
     apk add \
     python3-dev \
+    py3-pip \
     postgresql-dev \
     cython
 
 RUN apk add make automake gcc g++
-RUN apk add netcdf-dev hdf5-dev --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/
+RUN apk add netcdf-dev hdf5-dev --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
 
 RUN pip3 install -U pip
 
