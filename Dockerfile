@@ -1,6 +1,6 @@
 FROM ubuntu:18.10
 
-MAINTAINER James Hiebert <hiebert@uvic.ca>
+LABEL Maintainer="James Hiebert <hiebert@uvic.ca>"
 
 # WARNING: This should be removed with the introduction of 20.04
 RUN sed -i 's/archive.ubuntu.com/old-releases.ubuntu.com/g;s/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
@@ -24,6 +24,8 @@ RUN apt-get update && \
 
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
+
+RUN pip install -U pip && python3 -m pip install -U pip
 
 RUN pip install numpy && pip3 install numpy
 
