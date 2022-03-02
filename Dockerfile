@@ -9,7 +9,7 @@
 # HDF5 1.10
 # Numpy 1.18
 
-FROM osgeo/gdal:alpine-normal-latest
+FROM osgeo/gdal:alpine-normal-3.2.0
 
 MAINTAINER James Hiebert <hiebert@uvic.ca>
 
@@ -24,6 +24,8 @@ RUN apk add make automake gcc g++
 RUN apk add netcdf-dev hdf5-dev --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
 
 RUN pip3 install -U pip
+# See https://github.com/nextgis/pygdal/issues/67
+RUN pip3 install "setuptools <58"
 
 # The GDAL docker image installs numpy, but unhelpfully omits the
 # development headers which we need to build h5py
