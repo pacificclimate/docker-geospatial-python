@@ -9,7 +9,7 @@
 # HDF5 1.10
 # Numpy 1.18
 
-FROM osgeo/gdal:alpine-normal-3.2.0
+FROM osgeo/gdal:ubuntu-small-3.2.0
 
 MAINTAINER James Hiebert <hiebert@uvic.ca>
 
