@@ -22,6 +22,7 @@ RUN apt-get update && \
 
 RUN apt-get install -y make automake gcc g++
 RUN apt-get install -y libnetcdf-dev libhdf5-dev 
+RUN apt-get install -y libpq-dev
 #--update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
 
 RUN pip3 install -U pip
