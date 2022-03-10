@@ -13,8 +13,8 @@ FROM osgeo/gdal:ubuntu-small-3.2.0
 
 MAINTAINER James Hiebert <hiebert@uvic.ca>
 
-RUN apt update && \
-    apt install \
+RUN apt-get update && \
+    apt-get install \
     python3-dev \
     py3-pip \
     postgresql-dev \
