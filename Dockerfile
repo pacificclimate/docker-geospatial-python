@@ -13,15 +13,15 @@ FROM osgeo/gdal:ubuntu-small-3.2.0
 
 MAINTAINER James Hiebert <hiebert@uvic.ca>
 
-RUN apk update && \
-    apk add \
+RUN apt update && \
+    apt install \
     python3-dev \
     py3-pip \
     postgresql-dev \
     cython
 
-RUN apk add make automake gcc g++
-RUN apk add netcdf-dev hdf5-dev --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
+RUN apt install make automake gcc g++
+RUN apt install netcdf-dev hdf5-dev --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
 
 RUN pip3 install -U pip
 # See https://github.com/nextgis/pygdal/issues/67
