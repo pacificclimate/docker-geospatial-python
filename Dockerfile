@@ -16,8 +16,8 @@ MAINTAINER James Hiebert <hiebert@uvic.ca>
 RUN apt-get update && \
     apt-get install \
     python3-dev \
-    py3-pip \
-    postgresql-dev \
+    python3-pip \
+    postgresql \
     cython
 
 RUN apt install make automake gcc g++
