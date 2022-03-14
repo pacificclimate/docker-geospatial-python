@@ -9,21 +9,20 @@
 # HDF5 1.10
 # Numpy 1.18
 
-FROM osgeo/gdal:ubuntu-small-3.2.0
+FROM osgeo/gdal:alpine-normal-3.2.0
 
 MAINTAINER James Hiebert <hiebert@uvic.ca>
 
-RUN apt-get update && \
-    apt-get install -y \
+RUN apk update && \
+    apk add \
     python3-dev \
-    python3-pip \
-    postgresql \
+    py3-pip \
+    postgresql-dev \
     cython
 
-RUN apt-get install -y make automake gcc g++
-RUN apt-get install -y libnetcdf-dev libhdf5-dev 
-RUN apt-get install -y libpq-dev
-#--update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
+RUN apk add make automake gcc g++
+RUN apk add netcdf-dev hdf5-dev --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
+RUN apk add libpq-dev
 
 RUN pip3 install -U pip
 # See https://github.com/nextgis/pygdal/issues/67
