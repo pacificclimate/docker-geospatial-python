@@ -22,7 +22,6 @@ RUN apk update && \
 
 RUN apk add make automake gcc g++
 RUN apk add netcdf-dev hdf5-dev --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/
-RUN apk add libpq-dev
 
 RUN pip3 install -U pip
 # See https://github.com/nextgis/pygdal/issues/67
