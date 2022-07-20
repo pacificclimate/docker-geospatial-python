@@ -4,7 +4,7 @@
 # that contains a minimal set of functionality that we require (which
 # is still enormous). It runs:
 # Python 3.8
-# GDAL 3.0
+# GDAL 3.2
 # NetCDF 4.7
 # HDF5 1.10
 # Numpy 1.18
