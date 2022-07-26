@@ -33,4 +33,5 @@ RUN pip3 uninstall -y numpy
 
 RUN pip3 install --no-binary=numpy wheel cython numpy
 
-RUN pip3 install h5py netCDF4
+RUN pip3 install h5py
+RUN pip3 install netCDF4==1.5.7
