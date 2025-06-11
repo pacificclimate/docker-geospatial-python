@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 LABEL Maintainer="James Hiebert <hiebert@uvic.ca>"
 
@@ -18,8 +18,6 @@ RUN apt-get update && apt-get install -yq \
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
 
-RUN python3 -m pip install -U pip
+RUN pip install numpy --break-system-packages
 
-RUN pip3 install numpy
-
-RUN pip3 install gdal==3.4.1 h5py netCDF4 psycopg2 PyYAML pillow
+RUN pip install gdal==3.8.4 h5py netCDF4 psycopg2 PyYAML pillow --break-system-packages
