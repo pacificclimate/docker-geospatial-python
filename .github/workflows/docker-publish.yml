@@ -31,4 +31,4 @@ jobs:
           push: true
           tags: |
             pcic/geospatial-python:${{ github.ref_name }}
-            ${{ github.ref_name == 'main' && 'pcic/geospatial-python:latest' || '' }}
+            ${{ github.ref_name == 'master' && 'pcic/geospatial-python:latest' || '' }}
