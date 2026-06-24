@@ -6,19 +6,46 @@ on:
       - '*'
     tags:
       - '[0-9]+.[0-9]+.[0-9]+'
-  pull_request:
 
+permissions:
+  contents: read
 jobs:
   publish:
 
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@master
-      - name: Publish to Registry
-        uses: docker/build-push-action@v1
+      - uses: actions/checkout@61b9e3751b92087fd0b06925ba6dd6314e06f089 # master
+        with:
+          persist-credentials: false
+      - name: Log in to Docker Hub
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           username: ${{ secrets.pcicdevops_at_dockerhub_username }}
           password: ${{ secrets.pcicdevops_at_dockerhub_password }}
-          repository: pcic/geospatial-python
-          tag_with_ref: true
+
+      - name: Publish to Registry
+        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0
+        with:
+          push: true
+          tags: |
+            pcic/geospatial-python:${{ github.ref_name }}
+            ${{ github.ref_name == 'master' && 'pcic/geospatial-python:latest' || '' }}
+
+  smoke-test:
+    needs: publish
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@61b9e3751b92087fd0b06925ba6dd6314e06f089 # master
+        with:
+          persist-credentials: false
+
+      - name: Pull the published image
+        run: docker pull pcic/geospatial-python:${{ github.ref_name }}
+
+      - name: Verify each library imports and reports a version
+        run: |
+          docker run --rm \
+            -v "$PWD/ci:/ci:ro" \
+            pcic/geospatial-python:${{ github.ref_name }} \
+            python3 /ci/smoke_test.py
