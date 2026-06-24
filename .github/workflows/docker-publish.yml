@@ -31,3 +31,21 @@ jobs:
           tags: |
             pcic/geospatial-python:${{ github.ref_name }}
             ${{ github.ref_name == 'master' && 'pcic/geospatial-python:latest' || '' }}
+
+  smoke-test:
+    needs: publish
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@61b9e3751b92087fd0b06925ba6dd6314e06f089 # master
+        with:
+          persist-credentials: false
+
+      - name: Pull the published image
+        run: docker pull pcic/geospatial-python:${{ github.ref_name }}
+
+      - name: Verify each library imports and reports a version
+        run: |
+          docker run --rm \
+            -v "$PWD/ci:/ci:ro" \
+            pcic/geospatial-python:${{ github.ref_name }} \
+            python3 /ci/smoke_test.py
